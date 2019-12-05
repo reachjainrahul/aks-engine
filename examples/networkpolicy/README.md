@@ -1,9 +1,10 @@
 # AKS Engine - Network Policy
 
-There are 2 different Network Policy options :
+There are 3 different Network Policy options :
 
 - Calico
 - Cilium
+- Antrea
 
 ## Calico
 
