@@ -32,6 +32,10 @@ const (
 	NetworkPolicyCilium = "cilium"
 	// NetworkPluginCilium is the string expression for cilium network plugin config option
 	NetworkPluginCilium = NetworkPolicyCilium
+	// NetworkPluginAntrea is the string expression for antrea network plugin config option
+	NetworkPluginAntrea = "antrea"
+	// NetworkPolicyAntrea is the string expression for antrea network policy config option
+	NetworkPolicyAntrea = NetworkPluginAntrea
 	// NetworkPolicyAzure is the string expression for Azure CNI network policy manager
 	NetworkPolicyAzure = "azure"
 	// NetworkPluginAzure is the string expression for Azure CNI plugin

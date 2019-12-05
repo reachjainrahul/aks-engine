@@ -21,6 +21,7 @@ func TestKubernetesAddonSettingsInit(t *testing.T) {
 		expectedCoreDNS                bool
 		expectedKubeProxy              bool
 		expectedCilium                 bool
+		expectedAntrea                 bool
 		expectedFlannel                bool
 		expectedAADAdminGroup          bool
 		expectedAzureCloudProvider     bool
@@ -51,6 +52,7 @@ func TestKubernetesAddonSettingsInit(t *testing.T) {
 			expectedCoreDNS:                false,
 			expectedKubeProxy:              true,
 			expectedCilium:                 false,
+			expectedAntrea:                 false,
 			expectedFlannel:                false,
 			expectedAADAdminGroup:          false,
 			expectedAzureCloudProvider:     true,
@@ -76,6 +78,7 @@ func TestKubernetesAddonSettingsInit(t *testing.T) {
 			expectedCoreDNS:                true,
 			expectedKubeProxy:              true,
 			expectedCilium:                 false,
+			expectedAntrea:                 false,
 			expectedFlannel:                false,
 			expectedAADAdminGroup:          false,
 			expectedAzureCloudProvider:     true,
@@ -101,6 +104,33 @@ func TestKubernetesAddonSettingsInit(t *testing.T) {
 			expectedCoreDNS:                true,
 			expectedKubeProxy:              true,
 			expectedCilium:                 true,
+			expectedAntrea:                 false,
+			expectedFlannel:                false,
+			expectedAADAdminGroup:          false,
+			expectedAzureCloudProvider:     true,
+			expectedAuditPolicy:            true,
+			expectedPodSecurityPolicy:      false,
+			expectedManagedStorageClass:    true,
+			expectedUnmanagedStorageClass:  false,
+			expectedScheduledMaintenance:   false,
+			expectedAzureCSIStorageClasses: false,
+		},
+		// Antrea scenario
+		{
+			p: &api.Properties{
+				OrchestratorProfile: &api.OrchestratorProfile{
+					OrchestratorType:    Kubernetes,
+					OrchestratorVersion: "1.14.1",
+					KubernetesConfig: &api.KubernetesConfig{
+						NetworkPlugin: NetworkPluginAntrea,
+					},
+				},
+			},
+			expectedKubeDNS:                false,
+			expectedCoreDNS:                true,
+			expectedKubeProxy:              true,
+			expectedCilium:                 false,
+			expectedAntrea:                 true,
 			expectedFlannel:                false,
 			expectedAADAdminGroup:          false,
 			expectedAzureCloudProvider:     true,
@@ -126,6 +156,7 @@ func TestKubernetesAddonSettingsInit(t *testing.T) {
 			expectedCoreDNS:                true,
 			expectedKubeProxy:              true,
 			expectedCilium:                 false,
+			expectedAntrea:                 false,
 			expectedFlannel:                true,
 			expectedAADAdminGroup:          false,
 			expectedAzureCloudProvider:     true,
@@ -154,6 +185,7 @@ func TestKubernetesAddonSettingsInit(t *testing.T) {
 			expectedCoreDNS:                true,
 			expectedKubeProxy:              true,
 			expectedCilium:                 false,
+			expectedAntrea:                 false,
 			expectedFlannel:                false,
 			expectedAADAdminGroup:          true,
 			expectedAzureCloudProvider:     true,
@@ -180,6 +212,7 @@ func TestKubernetesAddonSettingsInit(t *testing.T) {
 			expectedCoreDNS:                true,
 			expectedKubeProxy:              true,
 			expectedCilium:                 false,
+			expectedAntrea:                 false,
 			expectedFlannel:                false,
 			expectedAADAdminGroup:          false,
 			expectedAzureCloudProvider:     true,
@@ -212,6 +245,7 @@ func TestKubernetesAddonSettingsInit(t *testing.T) {
 			expectedCoreDNS:                true,
 			expectedKubeProxy:              true,
 			expectedCilium:                 false,
+			expectedAntrea:                 false,
 			expectedFlannel:                false,
 			expectedAADAdminGroup:          false,
 			expectedAzureCloudProvider:     true,
@@ -237,6 +271,7 @@ func TestKubernetesAddonSettingsInit(t *testing.T) {
 			expectedCoreDNS:                true,
 			expectedKubeProxy:              true,
 			expectedCilium:                 false,
+			expectedAntrea:                 false,
 			expectedFlannel:                false,
 			expectedAADAdminGroup:          false,
 			expectedAzureCloudProvider:     true,
@@ -267,6 +302,7 @@ func TestKubernetesAddonSettingsInit(t *testing.T) {
 			expectedCoreDNS:                false,
 			expectedKubeProxy:              true,
 			expectedCilium:                 false,
+			expectedAntrea:                 false,
 			expectedFlannel:                false,
 			expectedAADAdminGroup:          false,
 			expectedAzureCloudProvider:     true,
@@ -298,6 +334,7 @@ func TestKubernetesAddonSettingsInit(t *testing.T) {
 			expectedCoreDNS:                true,
 			expectedKubeProxy:              true,
 			expectedCilium:                 false,
+			expectedAntrea:                 false,
 			expectedFlannel:                false,
 			expectedAADAdminGroup:          false,
 			expectedAzureCloudProvider:     true,
@@ -329,6 +366,7 @@ func TestKubernetesAddonSettingsInit(t *testing.T) {
 			expectedCoreDNS:                true,
 			expectedKubeProxy:              true,
 			expectedCilium:                 false,
+			expectedAntrea:                 false,
 			expectedFlannel:                false,
 			expectedAADAdminGroup:          false,
 			expectedAzureCloudProvider:     true,
@@ -354,6 +392,7 @@ func TestKubernetesAddonSettingsInit(t *testing.T) {
 			expectedCoreDNS:                true,
 			expectedKubeProxy:              true,
 			expectedCilium:                 false,
+			expectedAntrea:                 false,
 			expectedFlannel:                false,
 			expectedAADAdminGroup:          false,
 			expectedAzureCloudProvider:     true,
@@ -385,6 +424,7 @@ func TestKubernetesAddonSettingsInit(t *testing.T) {
 			expectedCoreDNS:                true,
 			expectedKubeProxy:              true,
 			expectedCilium:                 false,
+			expectedAntrea:                 false,
 			expectedFlannel:                false,
 			expectedAADAdminGroup:          false,
 			expectedAzureCloudProvider:     true,
@@ -416,6 +456,10 @@ func TestKubernetesAddonSettingsInit(t *testing.T) {
 			case "cilium-daemonset.yaml":
 				if c.expectedCilium != componentFileSpec.isEnabled {
 					t.Fatalf("Expected %s to be %t", common.CiliumAddonName, c.expectedCilium)
+				}
+			case "antrea-daemonset.yaml":
+				if c.expectedAntrea != componentFileSpec.isEnabled {
+					t.Fatalf("Expected %s to be %t", common.AntreaAddonName, c.expectedAntrea)
 				}
 			case "flannel-daemonset.yaml":
 				if c.expectedFlannel != componentFileSpec.isEnabled {

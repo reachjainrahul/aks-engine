@@ -286,7 +286,9 @@ func (cs *ContainerService) setAddonsConfig(isUpgrade bool) {
 
 	defaultIPMasqAgentAddonsConfig := KubernetesAddon{
 		Name:    common.IPMASQAgentAddonName,
-		Enabled: to.BoolPtr(DefaultIPMasqAgentAddonEnabled && o.KubernetesConfig.NetworkPlugin != NetworkPluginCilium),
+		Enabled: to.BoolPtr(DefaultIPMasqAgentAddonEnabled &&
+				    (o.KubernetesConfig.NetworkPlugin != NetworkPluginCilium &&
+				     o.KubernetesConfig.NetworkPlugin != NetworkPluginAntrea)),
 		Containers: []KubernetesContainerSpec{
 			{
 				Name:           common.IPMASQAgentAddonName,

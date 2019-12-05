@@ -2814,6 +2814,17 @@ func TestRequireRouteTable(t *testing.T) {
 			},
 			expected: false,
 		},
+		{
+			p: Properties{
+				OrchestratorProfile: &OrchestratorProfile{
+					OrchestratorType: Kubernetes,
+					KubernetesConfig: &KubernetesConfig{
+						NetworkPlugin: NetworkPolicyAntrea,
+					},
+				},
+			},
+			expected: false,
+		},
 	}
 
 	for _, c := range cases {

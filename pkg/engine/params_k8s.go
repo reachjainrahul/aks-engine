@@ -89,6 +89,7 @@ func assignKubernetesParameters(properties *api.Properties, parametersMap params
 				CloudProviderDisableOutboundSNAT:  kubernetesConfig.CloudProviderDisableOutboundSNAT,
 			})
 			addValue(parametersMap, "kubeClusterCidr", kubernetesConfig.ClusterSubnet)
+			addValue(parametersMap, "kubeServiceCidr", kubernetesConfig.ServiceCIDR)
 			addValue(parametersMap, "kubernetesKubeletClusterDomain", kubernetesConfig.KubeletConfig["--cluster-domain"])
 			addValue(parametersMap, "dockerBridgeCidr", kubernetesConfig.DockerBridgeSubnet)
 			addValue(parametersMap, "networkPolicy", kubernetesConfig.NetworkPolicy)

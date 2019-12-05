@@ -429,6 +429,9 @@ MASTER_CONTAINER_ADDONS_PLACEHOLDER
 {{if eq .OrchestratorProfile.KubernetesConfig.NetworkPlugin "flannel"}}
     sed -i "s|<kubeClusterCidr>|{{WrapAsParameter "kubeClusterCidr"}}|g" /etc/kubernetes/addons/flannel-daemonset.yaml
 {{end}}
+{{if eq .OrchestratorProfile.KubernetesConfig.NetworkPlugin "antrea"}}
+    sed -i "s|<kubeServiceCidr>|{{WrapAsParameter "kubeServiceCidr"}}|g" /etc/kubernetes/addons/antrea-daemonset.yaml
+{{end}}
     #EOF
 
 - path: /opt/azure/containers/mountetcd.sh
