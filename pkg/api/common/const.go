@@ -178,6 +178,8 @@ const (
 	KubeProxyAddonName = "kube-proxy-daemonset"
 	// CiliumAddonName is the name of cilium daemonset addon
 	CiliumAddonName = "cilium-daemonset"
+	// AntreaAddonName is the name of antrea daemonset addon
+	AntreaAddonName = "antrea-daemonset"
 	// FlannelAddonName is the name of flannel plugin daemonset addon
 	FlannelAddonName = "flannel-daemonset"
 	// AADAdminGroupAddonName is the name of the default admin group RBAC addon

@@ -192,6 +192,12 @@ func kubernetesAddonSettingsInit(p *api.Properties) []kubernetesComponentFileSpe
 			isEnabled:       k.NetworkPlugin == NetworkPluginFlannel,
 		},
 		{
+			sourceFile:      "kubernetesmasteraddons-antrea-daemonset.yaml",
+			base64Data:      k.GetAddonScript(common.AntreaAddonName),
+			destinationFile: "antrea-daemonset.yaml",
+			isEnabled:       k.NetworkPlugin == NetworkPluginAntrea,
+		},
+		{
 			sourceFile:      "kubernetesmasteraddons-aad-default-admin-group-rbac.yaml",
 			base64Data:      k.GetAddonScript(common.AADAdminGroupAddonName),
 			destinationFile: "aad-default-admin-group-rbac.yaml",
